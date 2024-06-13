@@ -1,0 +1,81 @@
+# Note: conda dependencies have only 1 "="
+#       pip dependencies have 2 "=="
+# Fuse pip dependencies together under one " - pip" item
+#       Otherwise, only some of the are installed, because conda creates a temporary requirements.txt file
+#       only the last -pip section
+
+name: DPHM
+
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  #- fvcore
+  #- iopath
+  #- pytorch3d
+
+dependencies:
+  - python=3.9
+  - pip
+
+  # CUDA
+  #- cudatoolkit
+  #- cuda-nvcc
+  #- cuda-libraries-dev
+  #- ninja
+  #- fvcore
+  #- iopath
+  #- pytorch=2.0.1
+  #- torchvision=0.15.2
+  #- pytorch-cuda=11.7
+  #- pytorch3d=0.7.4
+
+  - pip:
+      # Torch
+      #- einops
+      #- torch_geometric==2.3.1
+      #- git+https://github.com/pyg-team/pyg-lib.git
+      #- torch_scatter
+      #- torch_sparse
+      #- torch_cluster
+      - Cython
+      - dreifus
+      - tyro
+      - pymcubes=0.1.4
+      - trimesh=4.4.1
+      - pyvista=0.43.9
+      - pymeshlab
+      - chardet
+      - point_cloud_utils=0.30.4
+      - mediapy
+      - pyrender=0.1.45 # with PyOpenGL=3.1.0
+      - ffmpeg
+      - numpy==1.23
+      - git+https://github.com/FacePerceiver/facer.git@main
+      - timm
+      - insightface # MICA
+      - onnxruntime # MICA
+      - loguru # MICA
+      - face_alignment # MICA
+      - tensorboard # metrical-tracker
+      - mediapipe # metrical-tracker
+      - distinctipy
+      - chumpy
+      - wandb=0.17.1
+      - cython
+      - insightface==0.7
+
+      - opencv-contrib-python=4.10.0
+      - omegaconf=2.3.0
+      - torch_geometric=2.3.0 #2.5.2
+      - tyro=0.8.4
+      - imageio=2.34.1
+      # for diffusion
+      - einops-0.8.0
+      - accelerate=0.31.0 
+      - huggingface-hub=0.23.3
+      - safetensors=0.4.3
+      - pyopengl==3.1.5
+      - ema_pytorch=0.4.8
+      # by jptang
+      #- tyro pymcubes trimesh pyvista point_cloud_utils wandb
