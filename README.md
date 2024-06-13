@@ -58,23 +58,23 @@ python scripts/training/launch.py --cfg-file configs/n3dmm_anc39_iden1344_expr20
 ```
 or we suggest you use a pretrained model of NPHMs with backward deformations, as the training would take several days. You can test the pre-trained NPHMs by decoding and visualizing the fitted parametric latents on the train dataset. For example, you can generate the fitted 3D head of 100-th identity with 0-th expression.
 ```
-python scripts/dphm/nphm_vis.py -iden 100 -expr 0
+python scripts/diffusion/nphm_vis.py -iden 100 -expr 0
 ```
 
 ### Train identity / Expression Latent Diffusion Models
 Based on the fitted latents on the train dataset, we use latent diffusion models to explicitly learn the distribution of identity and expression parametric latents.
 The latent diffusion is based on UNet-1D + attention layers from [DDPM](https://github.com/lucidrains/denoising-diffusion-pytorch/blob/main/denoising_diffusion_pytorch/denoising_diffusion_pytorch_1d.py).
 ```
-DISPLAY=:0 xvfb-run -a  python scripts/dphm/train_diff_1d_backward.py -cfg_file scripts/dphm/configs/diff_iden_dim64_mults4.yaml -exp_name nphm_diff_iden_dim64_mults4
-DISPLAY=:0 xvfb-run -a  python scripts/dphm/train_diff_1d_backward.py -cfg_file scripts/dphm/configs/diff_expre_dim64_mults4.yaml -exp_name nphm_diff_expre_dim64_mults4
+DISPLAY=:0 xvfb-run -a  python scripts/diffusion/train_diff_1d_backward.py -cfg_file scripts/diffusion/configs/diff_iden_dim64_mults4.yaml -exp_name nphm_diff_iden_dim64_mults4
+DISPLAY=:0 xvfb-run -a  python scripts/diffusion/train_diff_1d_backward.py -cfg_file scripts/diffusion/configs/diff_expre_dim64_mults4.yaml -exp_name nphm_diff_expre_dim64_mults4
 ```
 We add ```DISPLAY=:0 xvfb-run -a```, as we want to render the randomly generated meshes during training as images for debugging.
 
 ### Unconditionally generate 3D head avatars
 After training parametric latent diffusion models, we can randomly sample noises, and then apply diffusion models to transform them into meaningful identity or expression latents.
 ```
-DISPLAY=:0 xvfb-run -a  python scripts/dphm/sample_diff_1d_backward.py  -cfg_file scripts/dphm/configs/diff_expre_dim64_mults4.yaml -exp_name dphm_iden_dim64_mults4 
-DISPLAY=:0 xvfb-run -a  python scripts/dphm/sample_diff_1d_backward.py  -cfg_file scripts/dphm/configs/diff_iden_dim64_mults4.yaml -exp_name dphm_expre_dim64_mults4 
+DISPLAY=:0 xvfb-run -a  python scripts/diffusion/sample_diff_1d_backward.py  -cfg_file scripts/diffusion/configs/diff_expre_dim64_mults4.yaml -exp_name dphm_iden_dim64_mults4 
+DISPLAY=:0 xvfb-run -a  python scripts/diffusion/sample_diff_1d_backward.py  -cfg_file scripts/diffusion/configs/diff_iden_dim64_mults4.yaml -exp_name dphm_expre_dim64_mults4 
 ```
 
 ## Apply DPHMs for head tracking
