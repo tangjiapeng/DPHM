@@ -1,0 +1,21 @@
+EXPERIMENT_DIR = '/mnt/hdd/GTA-experiments/' # save training checkpoint here
+EXPERIMENT_DIR_REMOTE = '/mnt/rohan/cluster/doriath/sgiebenhain/GTA/experiments/' # load models from here
+
+SUPERVISION_IDENTITY = '/cluster/andram/sgiebenhain/multi_field_samples_filtered' #'/cluster/doriath/sgiebenhain/multi_field_samples_new_multi' 
+SUPERVISION_DEFORMATION_OPEN = '/cluster/andram/sgiebenhain/registration_deformations_final_open' 
+SUPERVISION_DEFORMATION_CLOSED = '/cluster/andram/sgiebenhain/registration_deformations_final_closed'
+DATA = '/cluster/balrog/jtang/Head_tracking/nphm_dataset2/' # used for forward deformation
+DATA_FLAME = '/cluster/andram/sgiebenhain/FLAME_params_NPHM'
+
+TRACKING_RESULTS = '/cluster/balrog/jtang/Head_tracking/dphm_tracking/' #save tracking / fitting results here
+DATA_TRACKING = '/cluster/balrog/jtang/Head_tracking/dphm_kinect/' # data for tracking is stored here
+
+CODE_BASE = '/cluster/balrog/jtang/Head_tracking/DPHM/' # let this point to the root of this repository
+ASSETS = '/cluster/balrog/jtang/Head_tracking/DPHM/assets/' # this should point to the assets directory of NPHM
+ANCHOR_INDICES_PATH = ASSETS + 'lm_inds_{}.npy'
+ANCHOR_MEAN_PATH = ASSETS + 'anchors_{}.npy'
+
+NERSEMBLE_DATASET_PATH = '/mnt/rohan/cluster/doriath/tkirschstein/data/famudy/full/'
+
+nphm_tracking_name_priorities = ['NPHM_distinctive_new'] #['NPHM_temp_wNeck_wLMs', 'NPHM_temp_wNeck', 'NPHM_distinctive', 'NPHM' ]
+neutrals_closed = None

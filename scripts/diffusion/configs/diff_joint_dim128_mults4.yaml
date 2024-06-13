@@ -1,0 +1,58 @@
+nphm_backward:
+  # NPHM Identity Netowork
+  z_global_shape: 64
+  z_local_shape: 32
+  num_anchors: 39
+  #z_position_mlp: 64 # 64 for old model and 128 for new model
+  # z_position_mlp: 128
+  # num_neighbors: 12
+  z_sdf: 200
+  num_layers_shape: 4
+  num_symm_anchor_pairs: 16
+  input_dim: 5
+  output_dim_shape: 1
+
+  # NPHM Expression Network
+  expression_mode: 'compress'
+  z_expression: 200
+  z_expression_mlp: 512
+  z_shape_projection: 32
+  num_layers_expression: 6
+  input_dim_expression: 3
+  output_dim_expression: 5
+
+  # pretrain model and json file
+  nphm_weight_dir: '/cluster/doriath/sgiebenhain/GTA/experiments/SLICED_geo+expr_newSupervisionWEars_fixedOffSuper2_woColor_releasedData2'
+  pretrained_model: '/cluster/doriath/sgiebenhain/GTA/experiments/SLICED_geo+expr_newSupervisionWEars_fixedOffSuper2_woColor_releasedData2/checkpoints/checkpoint_epoch_6000.tar' # Final NPHM model
+  identity_json_path: '/cluster/doriath/sgiebenhain/GTA/experiments/SLICED_geo+expr_newSupervisionWEars_fixedOffSuper2_woColor_releasedData2/subject_train_index.json'
+  expression_json_path: '/cluster/doriath/sgiebenhain/GTA/experiments/SLICED_geo+expr_newSupervisionWEars_fixedOffSuper2_woColor_releasedData2/expression_train_index.json'
+  nphm_anchor_mean_path:  '/cluster/balrog/jtang/Head_tracking/NPHM/assets/anchors_39.npy'
+
+diffusion:
+  net_kwargs:
+    dim: 128
+    dim_mults: [1, 2, 4, 8]
+    channels: 1 # 32
+  diff_kwargs:
+    seq_length: 1544 #128,
+    timesteps: 1000
+    objective: 'pred_v'
+    auto_normalize: True #False
+
+training:
+  batch_size: 32
+  batch_size_val: 32
+  lr: 0.00008
+  num_steps: 1500000 # 1500k 
+  grad_acc: 1 #2
+  ema_update_every: 10
+  ema_decay: 0.995
+  save_and_sample_every: 5000
+  num_samples: 10
+  diff_type: 'joint'
+  save_mesh: False
+  #
+  npoints_decoder: 750
+  npoints_decoder_non: 250
+  sigma_near: 0.01
+  weight_decay: 0 #0.02

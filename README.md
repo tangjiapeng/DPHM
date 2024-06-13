@@ -1,6 +1,6 @@
 # DPHM
 
-[**Paper**](https://arxiv.org/abs/2312.01068.pdf) | [**arXiv**](https://arxiv.org/abs/2312.01068.pdf)  | [**Video**](https://www.youtube.com/embed/w_EJ5LDJ7T4) | [**Project Page**](https://tangjiapeng.github.io/projects/DPHMs/) <br>
+[**Paper**](https://arxiv.org/abs/2312.01068.pdf) | [**arXiv**](https://arxiv.org/abs/2312.01068.pdf)  | [**Video**](https://youtu.be/w_EJ5LDJ7T4) | [**Project Page**](https://tangjiapeng.github.io/projects/DPHMs/) <br>
 
 This is the repository that contains source code for the paper:
 
@@ -15,7 +15,7 @@ This is the repository that contains source code for the paper:
 > Note that some of the steps below can take a while
 ```
 conda env create -f environment.yml   
-conda activate NPHM-TUM
+conda activate DPHM
 
 pip install -e .
 
@@ -31,8 +31,8 @@ conda install -c fvcore -c iopath -c conda-forge fvcore iopath
 conda install pytorch3d=0.7.4 -c pytorch3d
 ```
 
-Next, you need to fill in some paths in `./src/nphm_tum/env_paths.py`.
-Before this use `cp src/nphm_tum/env_paths.template src/nphm_tum/env_paths.py` to create your local version and 
+Next, you need to fill in some paths in `./src/dphm_tum/env_paths.py`.
+Before this use `cp src/dphm_tum/env_paths.template src/dphm_tum/env_paths.py` to create your local version and 
 set the paths according to your system.
 The provided comments are hopefully enough explanation.
 
@@ -44,8 +44,7 @@ pip install pyopengl==3.1.5
 
 ## Download Pretrained Model, Assets and Example Data
 
-You can find all necessary data here: `https://drive.google.com/drive/folders/1yZdQkkKwBJLeMIsCSAy7MeAkfJjZVD_H?usp=sharing`
-Please don't carelessly share the model checkpoint, since the latent codes from the dataset can reconstruct the faces up to a high level of detail. 
+You can find all necessary data here.
 
 ## Train DPHMs
 
