@@ -5,8 +5,8 @@ import numpy as np
 from typing import Dict
 from famudy.data import FamudySequenceDataManager
 from famudy.constants import SERIALS
-from nphm_tum.utils.tranformations import invert_similarity_transformation, apply_transform
-from nphm_tum import env_paths
+from dphm_tum.utils.tranformations import invert_similarity_transformation, apply_transform
+from dphm_tum import env_paths
 
 def get_transform_mvs2flame2nphm(p_id, seq_name,
                              flame_params_path : str,

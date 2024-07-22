@@ -36,11 +36,18 @@ Before this use `cp src/dphm_tum/env_paths.template src/dphm_tum/env_paths.py` t
 set the paths according to your system.
 The provided comments are hopefully enough explanation.
 
+Also, install ChamferDistancePytorch for nearest neighborhood search:
+```
+cd ChamferDistancePytorch/chamfer3D
+python setup.py install
+```
+
 Finally, fix some versioning:
 ```
-pip install numpy==1.23
+pip install numpy==1.23.1
 pip install pyopengl==3.1.5
 ```
+
 
 
 ## 2. Data and Model Checkpoints
@@ -103,10 +110,14 @@ For eay-to-use, we also provide the detected landmarks in our DPHM-Kinect data.
 ### 4.2 Running the Preprocessing
 
 First we need to preprocess a bunch of data, namely this includes:
-- unproject depth maps to partial scans
-- landmark detection
+- unproject depth and normal maps to partial scans
+- landmark detection, and obtain 3d landmarks
 - FLAME fitting to get a rough initialization of the camera pose
 
+```
+python scripts/preprocess/00_create_kinect_scan_with_normals.py --datadir $DPHM_Kinect_dir
+python scripts/preprocess/01_fit_flame_to_kinect_seq.py
+```
 
 ### 4.3 Running the Tracking
 

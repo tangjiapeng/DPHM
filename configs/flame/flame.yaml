@@ -1,0 +1,105 @@
+# FLAME Related Parameters & assets
+num_flame_vertices: 5023
+use_face_contour: True
+z_shape_flame: 300
+z_expression_flame: 100
+
+z_shape_flame_female: 100
+z_expression_flame_female: 50
+use_3D_translation: True
+flame_segmented_mesh_path: './scripts/preprocess/dataset_creation/assets/flame/mesh_color_segmented.ply'
+flame_static_landmark_embedding_path: './scripts/preprocess/dataset_creation/assets/flame/flame_static_embedding.pkl'
+flame_dynamic_landmark_embedding_path: './scripts/preprocess/dataset_creation/assets/flame/flame_dynamic_embedding.npy'
+flame_model_path: './scripts/preprocess/dataset_creation/assets/flame/generic_model.pkl'
+flame_model_female_path: './scripts/preprocess/dataset_creation/assets/flame/female_model.pkl'
+flame_average_mesh_path: './scripts/preprocess/dataset_creation/assets/flame/flame_average.ply'
+
+
+# Dataset Paths
+nphm_dataset_path: '/cluster/balrog/jtang/Head_tracking/nphm_dataset2/'
+nersemble_dataset_path: '/cluster/doriath/tkirschstein/data/famudy/full'
+nphm_to_nersemble_mapping_dir: '/cluster/balrog/jtang/Head_tracking/NPHMTemporalData'
+kinect_data_path:  /cluster/balrog/jtang/Head_tracking/NPHM/dataset/DPHM-Kinect
+kinect_flame_fit_dir: /cluster/balrog/jtang/Head_tracking/NPHM/dataset/DPHM-Kinect_flamefit_flame2scan_usejaw_lms2d0_3d1_geo80_smo200_quan
+
+# Data Generation Parameters
+pointcloud_downsampling_factor: 20
+
+# released version of nphm: subjects eval & test
+subjects_eval: [199, 286, 290, 291, 292, 293, 294, 295, 297, 298]
+subjects_test: [99, 283, 143, 38, 241, 236, 276, 202, 98, 254, 204, 163, 267, 194, 20, 23, 209, 105, 186, 343, 341,  363, 350]
+
+# non-rigid registration loss weights:
+lambda_landmark2d: 0 # for better alignment ? default 0
+lambda_landmark: 1 
+lambda_geometric: 80 # for geometry alignment of kinect ?  default 20 
+# single frame regularization term
+reg_shape: 0.05  #0.1
+reg_expre: 0.05  # 0.1
+reg_pose: 0.1    # 0.2
+reg_rigid: 0.2   #for record ? 0  
+# temporal smoothness term
+smo_expre: 1.0   #0.1
+smo_pose: 2.0    #0.2
+smo_rigid: 200 
+
+# for flame fitting of kinect scans
+kinect:
+  pc_folder: points 
+  nms_folder: normals
+  pip_folder: "lms_3d_pip" 
+  mp_folder:  "lms_3d_mp"
+  subsample_npoints: 100000
+  down_ratio: 1 
+  ###
+  use_normals: True 
+  use_landmark: True 
+  use_jaw: True  # use jaw for more accurate initilization ? 
+  mask_forehead: True # False for record , address the geometry disalignment ?? 
+  from_flame_to_scan: True 
+  use_quanternion: True # for more stable tracking ? 
+  euler_convention: 'ZYX'
+  subjects: [ 
+    # "aria_talebizadeh_mouthmove", "aria_talebizadeh_rotatemouth", "arnefucks_mouthmove",  "arnefucks_rotatemouth", "elias_wohlgemuth_mouthmove",  "elias_wohlgemuth_rotatemouth", 
+    # "manuel_mouthmove",  "manuel_rotatemouth", "innocenzo_fulgintl_mouthmove",  "innocenzo_fulgintl_rotatemouth", "changluo_rotatemouth",  "weicao_mouthmovelarge", "weicao_rotatemouth",
+    # "weicao_random2", "weicao_angry",  "weicao_mouthmove", "weicao_mouthmovelarge", "weicao_fastalk",  "weicao_rotatemouth", "weicao_talk",  "weicao_smile2",  "weicao_smile",
+    # "changluo_random2", "changluo_fastalk", "changluo_mouthmovelarge", "changluo_rotatemouth", "changluo_angry", "changluo_talk", "changluo_smile",
+    # "haoxuan_eyeblink", "haoxuan_smile", "haoxuan_fastalk", "haoxuan_mouthmove", "haoxuan_rotatemouth", 
+    # "siyunliang_eyeblink", "siyunliang_smile", "siyunliang_fastalk", "siyunliang_mouthmove", "siyunliang_rotatemouth",
+    # #
+    # "yutongzhou_eyeblink_mouthmove", "jingyihe_angry",
+    # "aria_talebizadeh_eyeblink", "aria_talebizadeh_smile", "aria_talebizadeh_fastalk", "aria_talebizadeh_mouthmove", "aria_talebizadeh_rotatemouth", 
+    # "arnefucks_eyeblink",   "arnefucks_smile",  "arnefucks_fastalk",  "arnefucks_mouthmove",  "arnefucks_rotatemouth",
+    # "elias_wohlgemuth_eyeblink",   "elias_wohlgemuth_smile",  "elias_wohlgemuth_fastalk",  "elias_wohlgemuth_mouthmove",  "elias_wohlgemuth_rotatemouth",
+    # "innocenzo_fulgintl_eyeblink",   "innocenzo_fulgintl_smile",  "innocenzo_fulgintl_fastalk",  "innocenzo_fulgintl_mouthmove",  "innocenzo_fulgintl_rotatemouth",
+    # "mahabmarhai_eyeblink", "mahabmarhai_smile",  "mahabmarhai_fastalk",  "mahabmarhai_mouthmove",  "mahabmarhai_rotatemouth",
+    # "manuel_mouthmove",  "manuel_rotatemouth", "manuel_eyeblink",  "manuel_smile",  "manuel_fastalk", 
+    # #
+    # "michaeldyer_eyeblink2",  "michaeldyer_smile2",  "michaeldyer_fastalk2",  "michaeldyer_mouthmove2",  "michaeldyer_rotatemouth2",
+    # "seddik_houimli_eyeblink",  "seddik_houimli_smile",  "seddik_houimli_fastalk",  "seddik_houimli_mouthmove",  "seddik_houimli_rotatemouth",
+    # "ali_kocal_mouthmove", "ali_kocal_rotatemouth", "ali_kocal_eyeblink",  "ali_kocal_smile", "ali_kocal_fastalk", 
+    # "christoph_mouthmove", "christoph_rotatemouth", "christoph_eyeblink",  "christoph_smile", "christoph_fastalk",  
+    # "felix_mouthmove", "felix_rotatemouth", "felix_eyeblink",  "felix_smile", "felix_fastalk",  
+    # "honglixu_mouthmove", "honglixu_rotatemouth", "honglixu_eyeblink",  "honglixu_smile", "honglixu_fastalk",  
+    # #
+    # "madhav_agarwal_mouthmove", "madhav_agarwal_rotatemouth", "madhav_agarwal_eyeblink",  "madhav_agarwal_smile", "madhav_agarwal_fastalk",  
+    # "medhansh_mouthmove", "medhansh_eyeblink",  "medhansh_smile", "medhansh_fastalk",    # "medhansh_rotatemouth", 
+    # "mohak_mouthmove",  "mohak_rotatemouth", "mohak_eyeblink",  "mohak_smile",  "mohak_fastalk",  
+    # "mykola_mouthmove", "mykola_rotatemouth", "mykola_eyeblink",  "mykola_smile", "mykola_fastalk", 
+    # "umur_gogebakan_mouthmove",  "umur_gogebakan_rotatemouth",  "umur_gogebakan_fastalk", "umur_gogebakan_eyeblink",   "umur_gogebakan_smile", 
+    # "nikolas_mouthmove",  "nikolas_rotatemouth",  "nikolas_fastalk",  "nikolas_eyeblink",   "nikolas_smile", 
+    # "viet_mouthmove",   "viet_rotatemouth",  "viet_fastalk",  "viet_eyeblink",   "viet_smile", 
+      "leni_rohe_eyeblink", 
+    #"leni_rohe_mouthmove", "leni_rohe_rotatemouth", "leni_rohe_smile", 
+    #"neha_rao_eyeblink", "neha_rao_mouthmove",  "neha_rao_rotatemouth", "neha_rao_smile", 
+   ]
+
+# for flame fitting of mvs data
+mvs:
+  use_normals: True
+  use_landmark: True
+  use_jaw: True
+  mask_forehead: False
+  from_flame_to_scan: True 
+  use_quanternion: True
+  euler_convention: 'ZYX' 

@@ -70,6 +70,11 @@ dependencies:
       - torch_geometric=2.3.0 #2.5.2
       - tyro=0.8.4
       - imageio=2.34.1
+      - open3d=0.18.0
+      - plyfile=1.0.3
+      - matplotlib=3.7.1
+      - faiss-gpu=1.7.2
+      - chumpy=0.70
       # for diffusion
       - einops-0.8.0
       - accelerate=0.31.0 
