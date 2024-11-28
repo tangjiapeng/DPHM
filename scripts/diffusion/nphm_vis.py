@@ -20,8 +20,7 @@ from dphm_tum import env_paths
 from dphm_tum.models.neural3dmm import construct_n3dmm, load_checkpoint
 from dphm_tum.models.reconstruction import get_logits, get_vertex_color
 from dphm_tum.utils.reconstruction import create_grid_points_from_bounds, mesh_from_logits
-from nphm_utils import load_pretrained_nphm_backward
-
+from dphm_tum.utils.load_checkpoint import load_pretrained_nphm_backward
 
 parser = argparse.ArgumentParser(
     description='Run generation'

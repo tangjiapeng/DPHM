@@ -12,7 +12,7 @@ from dphm_tum.models.denoising_diffusion_pytorch_1d import Trainer1D, GaussianDi
 from dphm_tum.utils.reconstruction import create_grid_points_from_bounds, mesh_from_logits
 from dphm_tum.models.reconstruction import get_logits
 from dphm_tum.data.face_dataset import ScannerJson
-from nphm_utils import load_pretrained_nphm_backward
+from dphm_tum.utils.load_checkpoint import load_pretrained_nphm_backward
 
 parser = argparse.ArgumentParser(
     description='Run Model'

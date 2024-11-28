@@ -96,5 +96,19 @@ def jacobian(y, x):
     return jac, status
 
 
+def nabla(decoder, xc, latent_expre, latent_shape):
+    """Get gradients df/dx
+    Args:
+        xc (tensor): canonical points. shape: [B, N, D]
+        cond (dict): conditional input.
+        tfs (tensor): bone transformation matrices. shape: [B, J, D+1, D+1]
+    Returns:
+        grad (tensor): gradients. shape: [B, N, D, D]
+    """
+    xc.requires_grad_(True)
+
+    sdf_pred = decoder(xc, latent_expre, latent_shape)['sdf']
+    return sdf_pred, gradient(sdf_pred, xc)
+
 
 

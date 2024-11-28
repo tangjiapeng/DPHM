@@ -1,0 +1,195 @@
+nphm_backward:
+  # NPHM Identity Netowork
+  # z_global_shape: 64
+  # z_local_shape: 32
+  num_anchors: 39
+  # #z_position_mlp: 64 # 64 for old model and 128 for new model
+  # # z_position_mlp: 128
+  # # num_neighbors: 12
+  # z_sdf: 200
+  # num_layers_shape: 4
+  # num_symm_anchor_pairs: 16
+  # input_dim: 5
+  # output_dim_shape: 1
+
+  # # NPHM Expression Network
+  # expression_mode: 'compress'
+  # z_expression: 200
+  # z_expression_mlp: 512
+  # z_shape_projection: 32
+  # num_layers_expression: 6
+  # input_dim_expression: 3
+  # output_dim_expression: 5
+
+  # pretrain model and json file
+  nphm_weight_dir: './pretrain_models/nphm_backward'
+  pretrained_model: './pretrain_models/nphm_backward/checkpoints/checkpoint_epoch_6000.tar' # Final NPHM model
+  identity_json_path: './pretrain_models/nphm_backward/subject_train_index.json'
+  expression_json_path: './pretrain_models/nphm_backward/expression_train_index.json'
+  nphm_anchor_mean_path:  './assets/anchors_39.npy'
+
+
+diffusion:
+  cfg_file_shape_diff: scripts/diffusion/configs/diff_iden_dim64_mults4.yaml
+  cfg_file_expre_diff: scripts/diffusion/configs/diff_expre_dim64_mults4.yaml
+  exp_dir_shape_diff: pretrain_models/dphm_iden_dim64_mults4 #experiments/nphm_backward_std_new_iden_dim64_mults4_norm
+  exp_dir_expre_diff: pretrain_models/dphm_expre_dim64_mults4 #experiments/nphm_backward_std_new_expre_dim64_mults4_norm
+# 
+sds_optim:
+  t_range: [0.4, 0.6] #[0.02, 0.98]
+  guidance_scale: 100
+  grad_scale: 1 
+  skip_unet: False # False --> denoising loss function, need to backpropagate gradient to denoising network
+
+project: "fit_pointclouds_seq"
+data:
+  kinect:
+    data_dir: "/cluster/balrog/jtang/Head_tracking/NPHM/dataset/recordings_process"
+    flame_fit_dir:  "/cluster/balrog/jtang/Head_tracking/NPHM/dataset/recordings_process_flamefit_flame2scan_usejaw_lms2d0_3d1_geo80_smo200_quan" 
+    subjects: [ 
+    "aria_talebizadeh_eyeblink", "aria_talebizadeh_smile", "aria_talebizadeh_fastalk", "aria_talebizadeh_mouthmove", "aria_talebizadeh_rotatemouth", 
+    "arnefucks_eyeblink",   "arnefucks_smile",  "arnefucks_fastalk",  
+    "arnefucks_mouthmove",  "arnefucks_rotatemouth", 
+    "elias_wohlgemuth_eyeblink",  "elias_wohlgemuth_smile",  "elias_wohlgemuth_fastalk",  "elias_wohlgemuth_mouthmove",  "elias_wohlgemuth_rotatemouth", 
+    "innocenzo_fulgintl_eyeblink",   "innocenzo_fulgintl_smile",  "innocenzo_fulgintl_fastalk",  "innocenzo_fulgintl_mouthmove",  "innocenzo_fulgintl_rotatemouth", 
+    "mahabmarhai_eyeblink", "mahabmarhai_smile",  "mahabmarhai_fastalk",  "mahabmarhai_mouthmove",  "mahabmarhai_rotatemouth", 
+    "manuel_eyeblink",  "manuel_smile",  "manuel_fastalk",  "manuel_mouthmove",  "manuel_rotatemouth",
+    "michaeldyer_eyeblink2",  "michaeldyer_smile2",  "michaeldyer_fastalk2",  "michaeldyer_mouthmove2",  "michaeldyer_rotatemouth2", 
+    "seddik_houimli_eyeblink",  "seddik_houimli_smile",  "seddik_houimli_fastalk",  "seddik_houimli_mouthmove",  "seddik_houimli_rotatemouth", 
+    "weicao_random2", "weicao_angry",  "weicao_mouthmove", "weicao_mouthmovelarge", "weicao_fastalk",  "weicao_rotatemouth", "weicao_talk",  "weicao_smile2",  "weicao_smile", 
+    "changluo_random2", "changluo_fastalk", "changluo_mouthmovelarge", "changluo_rotatemouth", "changluo_angry", "changluo_talk", "changluo_smile",
+    "haoxuan_eyeblink", "haoxuan_smile", "haoxuan_fastalk", "haoxuan_mouthmove", "haoxuan_rotatemouth", 
+    "siyunliang_eyeblink", "siyunliang_smile", "siyunliang_fastalk", "siyunliang_mouthmove", "siyunliang_rotatemouth",
+    "yutongzhou_eyeblink_mouthmove", "jingyihe_angry", 
+    # ]
+    "ali_kocal_mouthmove", "ali_kocal_rotatemouth", "ali_kocal_eyeblink",  "ali_kocal_smile", "ali_kocal_fastalk", 
+    "christoph_mouthmove", "christoph_rotatemouth", "christoph_eyeblink",  "christoph_smile", "christoph_fastalk",  
+    "felix_mouthmove", "felix_rotatemouth", "felix_eyeblink",  "felix_smile", "felix_fastalk",  
+    "honglixu_mouthmove", "honglixu_rotatemouth", "honglixu_eyeblink",  "honglixu_smile", "honglixu_fastalk",  
+    "madhav_agarwal_mouthmove", "madhav_agarwal_rotatemouth", "madhav_agarwal_eyeblink",  "madhav_agarwal_smile", "madhav_agarwal_fastalk",  
+    "medhansh_mouthmove", "medhansh_eyeblink",  "medhansh_smile", "medhansh_fastalk",   #"medhansh_rotatemouth", 
+    "mohak_mouthmove",  "mohak_rotatemouth", "mohak_eyeblink",  "mohak_smile",  "mohak_fastalk",  
+    "mykola_mouthmove", "mykola_rotatemouth", "mykola_eyeblink",  "mykola_smile", "mykola_fastalk", 
+    "umur_gogebakan_mouthmove",  "umur_gogebakan_rotatemouth",  "umur_gogebakan_fastalk", "umur_gogebakan_eyeblink",   "umur_gogebakan_smile", 
+    "nikolas_mouthmove",  "nikolas_rotatemouth",  "nikolas_fastalk",  "nikolas_eyeblink",   "nikolas_smile", 
+    "viet_mouthmove",   "viet_rotatemouth",  "viet_fastalk",  "viet_eyeblink",   "viet_smile", 
+    #
+    "leni_rohe_eyeblink", "leni_rohe_mouthmove", "leni_rohe_rotatemouth", "leni_rohe_smile", 
+    "neha_rao_eyeblink", "neha_rao_mouthmove",  "neha_rao_rotatemouth", "neha_rao_smile", 
+    "zaenib_eyeblink", "zaenib_mouthmove", "zaenib_rotatemouth", "zaenib_smile",
+    "ainingyu_randommouth", "ainingyu_smile", 
+    ] 
+    out_dir: ./experiments/backward_kinect
+    color_foldername: "color"
+    depth_foldername: "depth_normals_bilateral"
+    depth_postfix: "depth.jpg"
+    pc_crop_foldername: "points_new" 
+    nms_crop_foldername: "normals_new"
+    lms_pip_foldername: "lms_3d_pip_new"
+    lms_media_pipe_foldername: "lms_3d_mp_new"
+    # pc_crop_foldername: "points" 
+    # nms_crop_foldername: "normals"
+    # lms_pip_foldername: "lms_3d_pip"
+    # lms_media_pipe_foldername: "lms_3d_mp"
+    flame_foldername: meshes_flame
+    param_filename: "flame_parameters_flame2mvs_quan_raw.npz" 
+    use_quaternion: True # for better rigid alignment 
+    convention: 'ZYX'
+
+fitting_init:
+  exp_name:  "init_sds.05_s2_ncos0.05_a0.1"
+  keyframe: true
+  n_steps: 201 #501
+  init_lr: 0.01
+  lr_schedule: {50: 10, 100: 10, 150: 10}  #{150: 10, 300: 10, 400: 10, 450: 10} 
+  init_lr_rigid: 0.01 # 0.001 
+  lr_rigid_schedule: {50: 10, 100: 10, 150: 10}
+  batch_size: 8 
+  num_samples_per_obs: 5000
+  loop_every_obs: false 
+  opt_iden: True
+  opt_expre: True
+  opt_rigid_scale: True # address misalignement
+  log_loss: False #True
+  cal_normal: True
+  cal_anchor: True
+  lambdas:
+    surface: 2.0
+    normals:  0 
+    normals_cosin:  0.05  
+    anchors: 0.1 # 0.5
+    sds_shape: 0.5 
+    sds_expr: 0.5 
+    ### without diffusion priors
+    # reg_expr: 0.05 
+    # reg_glob: 0.25
+    # symm_dist: 5   
+    # reg_loc: 0.05  
+    # reg_extra: 10
+
+  
+
+fitting_incre:
+  exp_name: "incre_sds.05_s2_ncos.05_a.1_expsmo1"
+  keyframe: false 
+  init_lr: 0.01
+  lr_schedule: {50: 10, 100: 10, 150: 10}  
+  n_steps: 200  
+  init_lr2:  0.001 
+  lr2_schedule: {20: 10, 40: 10}  
+  n_steps2: 20 
+  init_lr_rigid: 0.001 
+  lr_rigid_schedule: {100: 10, 200: 10, 300: 10}  
+  log_loss: False #True
+  cal_normal: True
+  cal_anchor: True
+  opt_iden: False
+  opt_expre: True
+  opt_rigid_scale: True #only do alignment in the init stage, but not do it in the second stage, seems to be better.
+  lambdas:
+    surface: 2.0
+    normals: 0 
+    normals_cosin: 0.05 
+    anchors: 0.1 #0.5
+    # temporal smoothness
+    reg_expre_smo: 1 
+    reg_rot: 1 
+    reg_trans: 1 
+    # expression reguarization
+    sds_expr: 0.5 
+
+    ### without diffusion priors
+    #reg_expr: 0.02  
+
+
+fitting_joint:
+  exp_name: "joint_sds.05_s2_ncos.05_a.1_expsmo1"  
+  keyframe: False
+  init_lr: 0.0001 #0.01
+  lr_schedule: {20: 10, 40: 10}   
+  init_lr_rigid: 0.00001 #0.001 
+  lr_rigid_schedule: {20: 10, 40: 10}   
+  n_steps: 30
+  log_loss: False #True
+  cal_normal: True
+  cal_anchor: True
+  opt_iden: True
+  opt_expre: True
+  opt_rigid: True
+  opt_scale: True
+  lambdas:
+    surface: 2.0
+    normals: 0 
+    normals_cosin: 0.05 
+    anchors: 0.1 #0.5
+    #
+    smooth_expr: 1
+    smooth_rot: 1
+    smooth_trans: 1
+    #
+    sds_shape: 0.5 
+    sds_expr: 0.5 
+
+
+
+

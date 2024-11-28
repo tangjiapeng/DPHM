@@ -1,6 +1,6 @@
 # DPHM
 
-[**Paper**](https://arxiv.org/abs/2312.01068.pdf) | [**arXiv**](https://arxiv.org/abs/2312.01068.pdf)  | [**Video**](https://youtu.be/w_EJ5LDJ7T4) | [**Project Page**](https://tangjiapeng.github.io/projects/DPHMs/) <br>
+[**Paper**](https://openaccess.thecvf.com/content/CVPR2024/papers/Tang_DPHMs_Diffusion_Parametric_Head_Models_for_Depth-based_Tracking_CVPR_2024_paper.pdf) |  [**Supple**](https://openaccess.thecvf.com/content/CVPR2024/supplemental/Tang_DPHMs_Diffusion_Parametric_CVPR_2024_supplemental.pdf)[**arXiv**](https://arxiv.org/abs/2312.01068.pdf)  | [**Video**](https://youtu.be/w_EJ5LDJ7T4) | [**Project Page**](https://tangjiapeng.github.io/projects/DPHMs/) <br>
 
 This is the repository that contains source code for the paper:
 
@@ -91,8 +91,8 @@ We add ```DISPLAY=:0 xvfb-run -a```, as we want to render the randomly generated
 ### 3.3 Unconditionally generate 3D head avatars
 After training parametric latent diffusion models, we can randomly sample noises, and then apply diffusion models to transform them into meaningful identity or expression latents.
 ```
-DISPLAY=:0 xvfb-run -a  python scripts/diffusion/sample_diff_1d_backward.py  -cfg_file scripts/diffusion/configs/diff_expre_dim64_mults4.yaml -exp_name dphm_iden_dim64_mults4 
-DISPLAY=:0 xvfb-run -a  python scripts/diffusion/sample_diff_1d_backward.py  -cfg_file scripts/diffusion/configs/diff_iden_dim64_mults4.yaml -exp_name dphm_expre_dim64_mults4 
+DISPLAY=:0 xvfb-run -a  python scripts/diffusion/sample_diff_1d_backward.py  -cfg_file scripts/diffusion/configs/diff_iden_dim64_mults4.yaml -exp_name dphm_iden_dim64_mults4 
+DISPLAY=:0 xvfb-run -a  python scripts/diffusion/sample_diff_1d_backward.py  -cfg_file scripts/diffusion/configs/diff_expre_dim64_mults4.yaml -exp_name dphm_expre_dim64_mults4 
 ```
 
 ## 4. Apply DPHMs for head tracking
@@ -122,3 +122,26 @@ python scripts/preprocess/01_fit_flame_to_kinect_seq.py
 ### 4.3 Running the Tracking
 
 Once the preprocessing is done, you can start the dphm depth tracking using:
+```
+cfg_file=scripts/tracker/dphm_ncos.05_a.1_exprsmo1_rigsmo1_sds.5.yaml
+exp_tag="ncos.05_a.1_exprsmo1_rigsmo1_sds.5"
+DISPLAY=:0 xvfb-run -a  python scripts/tracker/tracker.py -cfg_file $cfg_file -exp_tag $exp_tag  -subj aria_talebizadeh_mouthmove  -init
+DISPLAY=:0 xvfb-run -a  python scripts/tracker/tracker.py -cfg_file $cfg_file -exp_tag $exp_tag  -subj aria_talebizadeh_mouthmove  -incre
+DISPLAY=:0 xvfb-run -a  python scripts/tracker/tracker.py -cfg_file $cfg_file -exp_tag $exp_tag  -subj aria_talebizadeh_mouthmove  -joint
+```
+
+## Acknowledgement
+Special thanks to authors of [NPHMs](https://github.com/SimonGiebenhain/NPHM) for proving their neural 3DMM and [NeRSemble](https://tobias-kirschstein.github.io/nersemble/) for preprocessing their dataset. 
+
+## Citation
+If you find our dataset or paper useful for your research , please include the following citation:
+```
+@article{tang2024dphms,
+      title={DPHMs: Diffusion Parametric Head Models for Depth-based Tracking},
+      author={Tang, Jiapeng and Dai, Angela and Nie, Yinyu and Markhasin, Lev and Thies, Justus and Niessner, Matthias},
+      booktitle={Proceedings of the ieee/cvf conference on computer vision and pattern recognition},
+      year={2024}
+    }
+```
+## Contact
+If you have questions regarding the dataset or code, please email to [Jiapeng Tang](jiapeng.tang@tum.de). We will get back to you as soon as possible.

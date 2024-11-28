@@ -23,5 +23,4 @@ scripts/intro_NPHM.py
 scripts/inference/
 ChamferDistancePytorch/chamfer3D/chamfer_3D.egg-info
 src/dphm_tum/preprocessing/
-scripts/tracker
 src/dphm_tum/fitting/

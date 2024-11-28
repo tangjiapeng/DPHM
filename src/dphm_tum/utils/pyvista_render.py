@@ -11,6 +11,7 @@ import trimesh
 import torch
 from glob import glob
 import cv2 as cv
+from PIL import Image
 
 def sample_points(mesh, npoints=10000):
     # mainly for flame

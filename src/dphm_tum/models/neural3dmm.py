@@ -234,7 +234,9 @@ class SingleModalityLatentCodes(nn.Module):
             dim = 3*resolution**2
         else:
             raise ValueError(f'Unexpected value for latent type encountered: {type}!')
-
+        
+        self.n_latents = n_latents
+        self.dim = dim
         self.embedding = torch.nn.Embedding(n_latents, dim,
                            max_norm=1.0, sparse=True, device='cuda').float()
 
@@ -256,7 +258,7 @@ class SingleModalityLatentCodes(nn.Module):
 
 def construct_n3dmm(cfg : dict,
                     modalities : List[Literal['geo', 'app', 'exp']],
-                    n_latents : list[int],
+                    n_latents : List[int],
                     device : torch._C.device = 0,
                     include_color_branch : bool = False
                     ):

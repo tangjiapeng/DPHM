@@ -11,7 +11,7 @@ from dphm_tum import env_paths
 from dphm_tum.data.face_dataset import ScannerJson
 from dphm_tum.models.neural3dmm import construct_n3dmm, load_checkpoint
 from dphm_tum.models.denoising_diffusion_pytorch_1d import Trainer1D, GaussianDiffusion1D, Unet1D
-from nphm_utils import load_pretrained_nphm_backward
+from dphm_tum.utils.load_checkpoint import load_pretrained_nphm_backward
 
 parser = argparse.ArgumentParser(description='Run Model')
 parser.add_argument('-exp_name', required=True, type=str)

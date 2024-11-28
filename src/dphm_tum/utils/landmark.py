@@ -172,3 +172,56 @@ ANCHOR_iBUG68_pairs_39 = np.array([
                         [9, 24], # right eye brow
                     ])
 
+
+lables = ['mouth_corner_l',
+            'mouth_corner_r',
+            'jaw_nose_l',
+            'jaw_nose_r',
+            'below_mouth_left',
+            'below_mouth_right',
+            'cheek_left',
+            'cheek_right',
+            'eyebrow_left',
+            'eyebrow_right',
+            'eye_inner_left',
+            'eye_inner_right',
+            'eye_outer_left',
+            'eye_outer_right',
+            'nose_left',
+            'nose_right',
+            'jaw_left',
+            'jaw_right',
+            'temple_left',
+            'temple_right',
+            'ear_left',
+            'ear_right',
+            'forehead_left',
+            'forhead_right',
+            'top_head_left',
+            'top_head_right',
+            'back_head_left',
+            'back_head_right',
+            'back_neck_left',
+            'back_neck_right',
+            'shoulder_left',
+            'shoulder_right',
+
+
+            'throat',
+            'nose_tip',
+            'lower_lip',
+            'upper_lip',
+            'nose_top',
+            'forehead',
+            'chin',
+            'rest'
+            ]
+
+
+MEDIA_PIPE_MOUTH_EYES_index = (61, 291,  # mouth corners
+            133, 362,  # inner eye
+            33, 263,  # outer eye
+            15, 11) # lips
+FLAME_MOUTH_EYES_index = (0, 1, 10, 11, 12, 13, 34, 35) # lips middlef
+
+
